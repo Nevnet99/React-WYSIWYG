@@ -1,9 +1,11 @@
 // global styles for the app styled components
 
+import pico from '@picocss/pico';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
 const GlobalStyles = createGlobalStyle`
+  ${pico}
   ${reset}
   *, *:before, *:after {
     box-sizing: inherit;
@@ -14,6 +16,7 @@ const GlobalStyles = createGlobalStyle`
   html {
     box-sizing: border-box;
     font-size: 80%;
+    font-family: ${({ theme: { font } }) => font.family};
 
     ${({ theme }) => theme.minBp('tablet')} {
         font-size: 55%;

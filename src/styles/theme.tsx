@@ -24,6 +24,9 @@ const theme: Theme = {
   colors: {
     background: '#000',
     text: '#fff',
+    error: '#f00',
+    positive: '#0f0',
+    positiveText: '#000',
   },
   radius: (type) => {
     if (!type) return null;
@@ -57,6 +60,9 @@ const theme: Theme = {
     return typographyValues[type];
   },
   minBp: (breakpoint) => `@media (min-width: ${setBreakpoint(breakpoint)}px)`,
+  font: {
+    family: 'Roboto, sans-serif',
+  },
 };
 
 // ! EXAMPLE USAGE

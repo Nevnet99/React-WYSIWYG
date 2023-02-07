@@ -1,0 +1,43 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import { Button } from ".";
+import { AiFillEdit } from "react-icons/ai";
+
+<Meta title="Atoms/Button" />
+
+# Button
+
+<br />
+<br />
+
+Example button component accepts all HTML button attributes base styles are from [picocss](https://picocss.com/).
+
+## Examples
+
+<br />
+<br />
+
+### Default
+
+<Canvas withSource="open">
+  <Story name="default">
+    <Button>Publish</Button>
+  </Story>
+</Canvas>
+
+### Positive
+
+<Canvas withSource="open">
+  <Story name="positive">
+    <Button variant="positive">Create</Button>
+  </Story>
+</Canvas>
+
+### Icon
+
+<Canvas withSource="open">
+  <Story name="icon">
+    <Button variant="icon">
+      <AiFillEdit />
+    </Button>
+  </Story>
+</Canvas>
