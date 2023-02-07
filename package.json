@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "generate": "plop"
   },
   "dependencies": {
     "@next/font": "13.1.6",
@@ -15,9 +18,27 @@
     "@types/react-dom": "18.0.10",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
+    "eslint-config-wesbos": "^3.2.3",
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "styled-components": "^5.3.6",
+    "styled-reset": "^4.4.5",
+    "tsconfig-paths-webpack-plugin": "^4.0.0",
     "typescript": "4.9.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@storybook/addon-actions": "^6.5.16",
+    "@storybook/addon-essentials": "^6.5.16",
+    "@storybook/addon-interactions": "^6.5.16",
+    "@storybook/addon-links": "^6.5.16",
+    "@storybook/builder-webpack5": "^6.5.16",
+    "@storybook/manager-webpack5": "^6.5.16",
+    "@storybook/react": "^6.5.16",
+    "@storybook/testing-library": "^0.0.13",
+    "@types/styled-components": "^5.1.26",
+    "babel-loader": "^8.3.0",
+    "eslint-plugin-storybook": "^0.6.10"
   }
 }
