@@ -1,1 +1,1 @@
-export { ComponentSwitch } from "./ComponentSwitch";
+export { ComponentSwitch } from './ComponentSwitch';
