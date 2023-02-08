@@ -1,0 +1,36 @@
+<!-- Checkbox.stories.mdx -->
+
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import { Tabs } from ".";
+
+<Meta title="Organisms/Tabs" />
+
+# Tabs
+
+### Example usage
+
+```jsx
+<Tabs defaultValue="tab1">
+  <Tabs.List>
+    <Tabs.Trigger value="tab1">Components</Tabs.Trigger>
+    <Tabs.Trigger value="tab2">Styles</Tabs.Trigger>
+  </Tabs.List>
+  <Tabs.Tab value="tab1">Tab 1 Content</Tabs.Tab>
+  <Tabs.Tab value="tab2">Tab 2 Content</Tabs.Tab>
+</Tabs>
+```
+
+## Default usage
+
+<br />
+
+<Story name="default">
+  <Tabs defaultValue="tab1">
+    <Tabs.List>
+      <Tabs.Trigger value="tab1">Components</Tabs.Trigger>
+      <Tabs.Trigger value="tab2">Styles</Tabs.Trigger>
+    </Tabs.List>
+    <Tabs.Tab value="tab1">Tab 1 Content</Tabs.Tab>
+    <Tabs.Tab value="tab2">Tab 2 Content</Tabs.Tab>
+  </Tabs>
+</Story>

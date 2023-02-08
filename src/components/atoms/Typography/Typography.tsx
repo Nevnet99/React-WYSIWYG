@@ -1,7 +1,6 @@
+import { FC, PropsWithChildren } from 'react';
 import { Wrapper } from './Typography.styles';
 
-interface Props {}
-
-export const Typography: Props = ({ children, ...props }) => (
+export const Typography: FC<PropsWithChildren> = ({ children, ...props }) => (
   <Wrapper {...props}>{children}</Wrapper>
 );

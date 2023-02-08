@@ -1,3 +1,4 @@
+import DragProvider from "@contexts/DragProvider";
 import StyleProvider from "@contexts/StyleProvider";
 import React from "react";
 
@@ -51,9 +52,11 @@ export const parameters = {
 export const decorators = [
   (Story) => (
     <div style={{ position: "relative" }}>
+      <DragProvider>
         <StyleProvider isStory>
           <Story />
         </StyleProvider>
+      </DragProvider>
     </div>
   ),
 ];

@@ -55,6 +55,9 @@
       "@mocks/*": [
         "src/mocks/*"
       ],
+      "@constants/*": [
+        "src/constants/*"
+      ]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
