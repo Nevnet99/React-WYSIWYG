@@ -51,9 +51,9 @@ export const parameters = {
 export const decorators = [
   (Story) => (
     <div style={{ position: "relative" }}>
-      <StyleProvider isStory>
-        <Story />
-      </StyleProvider>
+        <StyleProvider isStory>
+          <Story />
+        </StyleProvider>
     </div>
   ),
 ];

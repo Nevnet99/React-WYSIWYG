@@ -23,10 +23,12 @@ const pxToRem = (px: number) => `${px / 16}rem`;
 const theme: Theme = {
   colors: {
     background: '#000',
+    secondaryBackground: '#111',
     text: '#fff',
     error: '#f00',
     positive: '#0f0',
     positiveText: '#000',
+    outline: '#fff',
   },
   radius: (type) => {
     if (!type) return null;
