@@ -28,8 +28,8 @@ export const Header = styled.div`
 
 export const Buttons = styled.ul`
   display: flex;
-  flex-direction: row;
-  gap: ${({ theme }) => theme.spacing(20)};
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing(10)};
   padding: ${({ theme }) => theme.spacing(20)};
 
   li {

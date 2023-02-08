@@ -29,6 +29,7 @@ const theme: Theme = {
     positive: '#0f0',
     positiveText: '#000',
     outline: '#fff',
+    canvas: '#5d5d5d',
   },
   radius: (type) => {
     if (!type) return null;

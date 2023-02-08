@@ -5,6 +5,7 @@ export const Wrapper = styled.button<Pick<ButtonProps, 'variant'>>`
   background: ${({ variant, theme }) =>
     variant === 'positive' &&
     `${theme.colors.positive}; color: ${theme.colors.positiveText}`};
+  margin: 0;
 
   svg {
     width: ${({ theme }) => theme.spacing(24)};

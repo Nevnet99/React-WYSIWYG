@@ -12,6 +12,7 @@ export interface Theme {
     positive: string;
     positiveText: string;
     outline: string;
+    canvas: string;
   };
   radius: (type: RadiusOptions) => string | null;
   spacing: (value: number) => string | null;
