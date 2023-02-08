@@ -1,7 +1,7 @@
 import { ComponentSwitch } from '@atoms/ComponentSwitch';
 import { EditWrapper } from '@atoms/EditWrapper';
 import { EditorDrag } from '@atoms/EditorDrag';
-import { IComponent } from '@models/Component';
+import { IComponentInEditor } from '@models/Component';
 import { ItemTypes } from '@models/ItemTypes';
 import { ComponentTray } from '@molecules/ComponentTray';
 import update from 'immutability-helper';
@@ -10,9 +10,8 @@ import { useDrop } from 'react-dnd';
 import { Canvas, Wrapper } from './Editor.styles';
 
 export const Editor = () => {
-  const [webSchema, setWebSchema] = useState<IComponent[]>([]);
-  const [activeItem, setActiveItem] = useState<IComponent | null>(null);
-
+  const [webSchema, setWebSchema] = useState<IComponentInEditor[]>([]);
+  const [activeItem, setActiveItem] = useState<IComponentInEditor | null>(null);
   const [collectedProps, drop] = useDrop(() => ({
     accept: ItemTypes.COMPONENT,
     drop: () => ({ name: 'Canvas' }),

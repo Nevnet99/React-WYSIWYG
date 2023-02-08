@@ -5,8 +5,8 @@ interface Props {
   children: React.ReactNode;
 }
 
-export const ComponentSwitch = ({ id, children }: Props) => {
+export const ComponentSwitch = ({ id, children, ...rest }: Props) => {
   const Component = Components[id];
 
-  return <Component>{children}</Component>;
+  return <Component {...rest}>{children}</Component>;
 };

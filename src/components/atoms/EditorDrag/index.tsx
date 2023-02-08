@@ -1,1 +1,1 @@
-export { EditorDrag } from "./EditorDrag";
+export { EditorDrag } from './EditorDrag';

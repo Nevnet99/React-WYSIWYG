@@ -1,14 +1,15 @@
 import { Button } from '@atoms/Button';
 import { SidebarDrag } from '@atoms/SidebarDrag';
-import { IComponent } from '@models/Component';
+import { IComponentInEditor } from '@models/Component';
+import { StyleEditor } from '@organisms/StyleEditor';
 import { Tabs } from '@organisms/Tabs';
 import { Dispatch, SetStateAction } from 'react';
 import { Buttons, Wrapper } from './ComponentTray.styles';
 import { components } from './config';
 
 interface Props {
-  updateCanvas: Dispatch<SetStateAction<IComponent[]>>;
-  activeItem: IComponent | null;
+  updateCanvas: Dispatch<SetStateAction<IComponentInEditor[]>>;
+  activeItem: IComponentInEditor | null;
 }
 
 export const ComponentTray = ({ updateCanvas, activeItem }: Props) => (
@@ -32,7 +33,9 @@ export const ComponentTray = ({ updateCanvas, activeItem }: Props) => (
           ))}
         </Buttons>
       </Tabs.Tab>
-      <Tabs.Tab value="tab2">Tab 2 Content</Tabs.Tab>
+      <Tabs.Tab value="tab2">
+        <StyleEditor updateCanvas={updateCanvas} activeItem={activeItem} />
+      </Tabs.Tab>
     </Tabs>
   </Wrapper>
 );

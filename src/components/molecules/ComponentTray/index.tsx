@@ -1,1 +1,1 @@
-export { ComponentTray } from "./ComponentTray";
+export { ComponentTray } from './ComponentTray';

@@ -1,14 +1,13 @@
-import GlobalStyles from "@styles/globalStyles";
-import theme from "@styles/theme";
-import { ThemeProvider } from "styled-components";
+import GlobalStyles from '@styles/globalStyles';
+import theme from '@styles/theme';
+import { FC, PropsWithChildren } from 'react';
+import { ThemeProvider } from 'styled-components';
 
-function StyleProvider({ isStory, children }) {
-  return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles isStory={isStory} />
-      {children}
-    </ThemeProvider>
-  );
-}
+const StyleProvider: FC<PropsWithChildren> = ({ children }) => (
+  <ThemeProvider theme={theme}>
+    <GlobalStyles />
+    {children}
+  </ThemeProvider>
+);
 
 export default StyleProvider;
