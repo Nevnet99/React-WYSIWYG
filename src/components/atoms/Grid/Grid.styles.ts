@@ -4,9 +4,10 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  min-height: 200px;
+  grid-gap: 10px;
 
   & > div {
-    border: 1px dashed white;
+    border: 1px dashed hotpink;
+    min-height: 100px;
   }
 `;

@@ -11,4 +11,8 @@ export const components = [
     id: 3,
     name: 'Grid',
   },
+  {
+    id: 4,
+    name: 'GridDrop',
+  },
 ];

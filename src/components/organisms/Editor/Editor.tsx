@@ -36,7 +36,8 @@ export const Editor = () => {
     <Wrapper>
       <Canvas ref={drop}>
         {webSchema.map((block, index) => {
-          const { name, props } = block;
+          const { id: gridId, name, props } = block;
+
           return (
             <EditorDrag
               key={name}
@@ -45,13 +46,22 @@ export const Editor = () => {
               index={index}
             >
               <EditWrapper setActiveItem={setActiveItem} {...block}>
-                <ComponentSwitch id={name} {...props} />
+                <ComponentSwitch
+                  updateCanvas={setWebSchema}
+                  id={name}
+                  gridId={gridId}
+                  {...props}
+                />
               </EditWrapper>
             </EditorDrag>
           );
         })}
       </Canvas>
-      <ComponentTray updateCanvas={setWebSchema} activeItem={activeItem} />
+      <ComponentTray
+        webSchema={webSchema}
+        updateCanvas={setWebSchema}
+        activeItem={activeItem}
+      />
     </Wrapper>
   );
 };
