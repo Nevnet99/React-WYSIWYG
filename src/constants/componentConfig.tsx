@@ -1,5 +1,6 @@
 import { Button } from '@atoms/Button';
 import { Grid } from '@atoms/Grid';
+import { GridDrop } from '@atoms/GridDrop';
 import { Typography } from '@atoms/Typography';
 
 const baseStyles = [
@@ -25,7 +26,12 @@ const componentConfig = {
       children: 'Button',
     },
     Component: Button,
-    styles: [...baseStyles, { style: 'borderRadius', type: 'text' }],
+    styles: [
+      ...baseStyles,
+      { style: 'borderRadius', type: 'text' },
+      { style: 'height', type: 'text' },
+      { style: 'width', type: 'text' },
+    ],
   },
   Typography: {
     name: 'Typography',
@@ -45,6 +51,7 @@ const componentConfig = {
     name: 'Grid',
     type: 'Grid',
     styles: [
+      ...baseStyles,
       { style: 'gridTemplateColumns', type: 'text' },
       { style: 'gridTemplateRows', type: 'text' },
       { style: 'gridGap', type: 'text' },
@@ -52,6 +59,22 @@ const componentConfig = {
       { style: 'width', type: 'text' },
     ],
     Component: Grid,
+  },
+  GridDrop: {
+    name: 'GridDrop',
+    type: 'GridDrop',
+    styles: [
+      ...baseStyles,
+      { style: 'gridTemplateColumns', type: 'text' },
+      { style: 'gridTemplateRows', type: 'text' },
+      { style: 'gridGap', type: 'text' },
+      { style: 'height', type: 'text' },
+      { style: 'width', type: 'text' },
+    ],
+    props: {
+      children: 'Place a component here',
+    },
+    Component: GridDrop,
   },
 };
 

@@ -8,16 +8,23 @@ import { Buttons, Wrapper } from './ComponentTray.styles';
 import { components } from './config';
 
 interface Props {
+  webSchema: IComponentInEditor[];
   updateCanvas: Dispatch<SetStateAction<IComponentInEditor[]>>;
   activeItem: IComponentInEditor | null;
 }
 
-export const ComponentTray = ({ updateCanvas, activeItem }: Props) => (
+export const ComponentTray = ({
+  webSchema,
+  updateCanvas,
+  activeItem,
+}: Props) => (
   <Wrapper>
     <Tabs defaultValue="tab1">
       <Tabs.List>
         <Tabs.Trigger value="tab1">Components</Tabs.Trigger>
         <Tabs.Trigger value="tab2">Styles</Tabs.Trigger>
+        <Tabs.Trigger value="tab3">JSON</Tabs.Trigger>
+        <Tabs.Trigger value="tab4">Content</Tabs.Trigger>
       </Tabs.List>
       <Tabs.Tab value="tab1">
         <Buttons>
@@ -35,6 +42,12 @@ export const ComponentTray = ({ updateCanvas, activeItem }: Props) => (
       </Tabs.Tab>
       <Tabs.Tab value="tab2">
         <StyleEditor updateCanvas={updateCanvas} activeItem={activeItem} />
+      </Tabs.Tab>
+      <Tabs.Tab value="tab3">
+        <pre>{JSON.stringify(webSchema, null, 2)}</pre>
+      </Tabs.Tab>
+      <Tabs.Tab value="tab4">
+        <pre>{JSON.stringify(webSchema, null, 2)}</pre>
       </Tabs.Tab>
     </Tabs>
   </Wrapper>

@@ -22,4 +22,7 @@ export const StyledTabsList = styled(Tabs.List)`
 
 export const StyledTabTrigger = styled(Tabs.Trigger)``;
 
-export const StyledTabsContent = styled(Tabs.Content)``;
+export const StyledTabsContent = styled(Tabs.Content)`
+  max-height: 100vh;
+  overflow-y: scroll;
+`;
