@@ -1,5 +1,4 @@
 import componentConfig from '@constants/componentConfig';
-import { ReactNode } from 'react';
 
 type Style = {
   style: string;
@@ -15,8 +14,8 @@ export interface IComponent {
   Component: JSX.Element;
   name: keyof typeof componentConfig;
   props: {
-    children: ReactNode;
-    styles: ActiveStyle[];
+    children: string;
+    style: ActiveStyle[];
   };
   type: string;
   styles: Style[];

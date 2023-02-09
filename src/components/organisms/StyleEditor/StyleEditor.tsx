@@ -1,7 +1,14 @@
 import { Button } from '@atoms/Button';
 import { camelToTitleCase } from '@helpers/camelToTitleCase';
-import { IComponent, IComponentInEditor } from '@models/Component';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { IComponentInEditor } from '@models/Component';
+import { ContentEditor } from '@organisms/ContentEditor';
+import {
+  Dispatch,
+  FormEventHandler,
+  SetStateAction,
+  useEffect,
+  useRef,
+} from 'react';
 import { Wrapper } from './StyleEditor.styles';
 
 interface Props {
@@ -10,13 +17,12 @@ interface Props {
 }
 
 export const StyleEditor = ({ updateCanvas, activeItem }: Props) => {
-  const [newStyles, setNewStyles] = useState<Pick<IComponent, 'styles'>>([]);
-  const { id, styles, name } = activeItem || {};
+  const { id, styles } = activeItem || {};
+  const { props } = activeItem || {};
+  const formRef = useRef<HTMLFormElement>();
 
-  console.log(activeItem);
-
-  const handleSubmit = (evt: SubmitEvent) => {
-    evt.preventDefault();
+  const handleSubmit = (event: FormEventHandler<HTMLFormElement>) => {
+    event.preventDefault();
 
     const fields = Array.prototype.slice
       .call(event.target)
@@ -28,7 +34,9 @@ export const StyleEditor = ({ updateCanvas, activeItem }: Props) => {
         }),
         {}
       );
-    // find and replace current active item in the previous array
+
+    const { content } = fields;
+    delete fields.content;
 
     updateCanvas((prev) => {
       const indexToReplace = prev.findIndex(
@@ -37,29 +45,38 @@ export const StyleEditor = ({ updateCanvas, activeItem }: Props) => {
       const newArray = [...prev];
       newArray.splice(indexToReplace, 1, {
         ...activeItem,
-        props: { ...activeItem.props, style: { ...fields } },
+        props: { ...activeItem.props, style: { ...fields }, children: content },
       });
 
       return newArray;
     });
   };
 
+  useEffect(() => {
+    if (formRef.current) {
+      formRef.current.reset();
+    }
+  }, [activeItem]);
+
   return (
     <Wrapper>
-      <h2>
-        {!activeItem
-          ? 'Please select a component to start editing'
-          : `Editing: ${name}`}
-      </h2>
-
-      <form onSubmit={(evt, values) => handleSubmit(evt, values)}>
+      <form
+        ref={formRef}
+        onSubmit={(evt: FormEventHandler<HTMLFormElement>) => handleSubmit(evt)}
+      >
+        {activeItem && <ContentEditor defaultValue={props?.children} />}
         {styles &&
           styles?.map(({ style, type }) => (
             <>
               <label key={style} htmlFor={style}>
                 {camelToTitleCase(style)}
               </label>
-              <input name={style} id={style} type={type} />
+              <input
+                name={style}
+                id={style}
+                type={type}
+                defaultValue={(props.style && props.style[style]) || ''}
+              />
             </>
           ))}
         {activeItem && <Button type="submit">Save</Button>}
