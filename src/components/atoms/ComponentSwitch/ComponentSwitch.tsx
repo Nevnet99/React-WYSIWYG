@@ -6,6 +6,7 @@ interface Props {
   id: keyof typeof Components;
   children: ReactNode;
   updateCanvas: Dispatch<SetStateAction<IComponentInEditor[]>>;
+  gridId: string;
 }
 
 export const ComponentSwitch = ({ id, children, ...rest }: Props) => {
