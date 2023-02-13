@@ -27,7 +27,7 @@ export const EditWrapper = ({ children, ...component }: Props) => {
         <Actions>
           <Button
             type="button"
-            onClick={(evt) => {
+            onClick={() => {
               removeBlock(id);
             }}
           >

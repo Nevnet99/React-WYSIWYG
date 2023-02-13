@@ -1,11 +1,11 @@
 import { IComponentInEditor } from '@models/Component';
-import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { FC, ReactNode } from 'react';
 import { Components, voidComponents } from './config';
 
 interface Props {
   componentType: keyof typeof Components;
-  children: ReactNode;
-  updateCanvas: Dispatch<SetStateAction<IComponentInEditor[]>>;
+  children?: ReactNode;
+  props: IComponentInEditor['props'];
 }
 
 export const ComponentSwitch = ({
@@ -15,7 +15,7 @@ export const ComponentSwitch = ({
   ...rest
 }: Props) => {
   if (!componentType) return null;
-  const Component = Components[componentType];
+  const Component: FC<any> = Components[componentType];
   const { blocks } = props || [];
   const isVoid = voidComponents.includes(componentType);
 
@@ -25,7 +25,7 @@ export const ComponentSwitch = ({
     <Component {...rest} {...props}>
       {children}
       {blocks &&
-        blocks.map((block: IComponentInEditor) => {
+        blocks.map((block) => {
           const {
             componentType: blockComponentType,
             props: blockProps,

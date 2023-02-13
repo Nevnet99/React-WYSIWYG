@@ -1,3 +1,4 @@
+import { Components } from '@atoms/ComponentSwitch/config';
 import componentConfig from '@constants/componentConfig';
 
 type Style = {
@@ -21,14 +22,25 @@ export type CustomPropOptions = {
 export interface IComponent {
   Component: JSX.Element;
   name: keyof typeof componentConfig;
+  componentType: keyof typeof Components;
+  gridId?: string | undefined;
+  gridChild?: boolean;
   props: {
-    children: string;
-    children0: IComponent[];
-    children1: IComponent[];
-    children2: IComponent[];
+    children?: string;
+    children0: IComponentInEditor[];
+    children1: IComponentInEditor[];
+    children2: IComponentInEditor[];
     customProps?: Partial<CustomPropOptions>;
     style: ActiveStyle[];
+    blocks: IComponentInEditor[];
+    editableProps: Partial<{
+      type: string;
+      name: string;
+      input: string;
+      label: string;
+    }>
   };
+
   type: string;
   styles: Style[];
 }

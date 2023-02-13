@@ -1,12 +1,16 @@
 import { Grid } from '@atoms/Grid';
+import { IComponentInEditor } from '@models/Component';
 import { Wrapper } from './Form.styles';
 
-interface Props {}
+interface Props {
+  id: string;
+  customProps?: IComponentInEditor['props']['customProps'];
+  
+}
 
-export const Form: Props = ({ id, customProps, ...rest }) => {
+export const Form = ({ id, customProps, ...rest }: Props) => {
   const { url } = customProps || {};
   const { style } = rest;
-  console.log(style, 'STYLE');
 
   const handleSubmit = (event: FormEventHandler<HTMLFormElement>) => {
     event.preventDefault();

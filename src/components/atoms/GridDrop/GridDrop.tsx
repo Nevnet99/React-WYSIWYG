@@ -3,7 +3,7 @@ import { IComponentInEditor } from '@models/Component';
 import { ItemTypes } from '@models/ItemTypes';
 import { EditBlock } from '@molecules/EditBlock';
 import { PreviewBlock } from '@molecules/PreviewBlock';
-import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
+import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { GridDropContainer } from './GridDrop.styles';
@@ -11,7 +11,9 @@ import { GridDropContainer } from './GridDrop.styles';
 export interface DustbinProps {
   greedy?: boolean;
   children?: ReactNode;
-  updateCanvas: Dispatch<SetStateAction<IComponentInEditor[]>>;
+  index: number;
+  id: string;
+  blocks: IComponentInEditor[];
 }
 
 export interface DustbinState {

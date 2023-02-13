@@ -4,7 +4,7 @@ import { useEditor } from '@hooks/useEditor';
 import { useEffect, useRef } from 'react';
 import { StyledLabel, Wrapper } from './PropsEditor.styles';
 
-export const PropsEditor: Props = () => {
+export const PropsEditor = () => {
   const { activeBlock, updateBlock } = useEditor();
   const { id } = activeBlock || {};
   const { props } = activeBlock || {};
