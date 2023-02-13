@@ -18,6 +18,7 @@ export const EditWrapper = ({ children, ...component }: Props) => {
     <Wrapper
       onClick={(evt) => {
         evt.stopPropagation();
+        console.log(component);
         setActiveBlock(component);
       }}
     >

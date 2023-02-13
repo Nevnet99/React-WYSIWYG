@@ -7,6 +7,8 @@ export const Wrapper = styled(motion.div)`
   width: 30%;
   position: absolute;
   right: 0;
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
 `;
 
 export const TriggerWrapper = styled(motion.div)`

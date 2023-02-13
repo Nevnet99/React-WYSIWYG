@@ -2,6 +2,7 @@ import { useEditor } from '@hooks/useEditor';
 import { IComponentInEditor } from '@models/Component';
 import { ItemTypes } from '@models/ItemTypes';
 import { EditBlock } from '@molecules/EditBlock';
+import { PreviewBlock } from '@molecules/PreviewBlock';
 import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import { useState } from 'react';
 import { useDrop } from 'react-dnd';
@@ -21,7 +22,7 @@ export interface DustbinState {
 export const GridDrop: FC<DustbinProps> = ({ id, index, greedy, blocks }) => {
   const [hasDropped, setHasDropped] = useState(false);
   const [hasDroppedOnChild, setHasDroppedOnChild] = useState(false);
-  const { schema, updateBlock, removeBlock, getBlock } = useEditor();
+  const { schema, updateBlock, removeBlock, getBlock, preview } = useEditor();
 
   const [{ isOver, isOverCurrent }, drop] = useDrop(
     () => ({
@@ -60,11 +61,21 @@ export const GridDrop: FC<DustbinProps> = ({ id, index, greedy, blocks }) => {
   );
 
   return (
-    <GridDropContainer blocks={blocks && blocks.length} ref={drop}>
+    <GridDropContainer
+      preview={preview}
+      blocks={blocks && blocks.length}
+      ref={drop}
+    >
       {blocks &&
         blocks.map((block, index) => {
           const { type } = block || {};
-          return (
+          return preview ? (
+            <PreviewBlock
+              key={`${type}${index}-in-grid`}
+              index={index}
+              block={block}
+            />
+          ) : (
             <EditBlock
               key={`${type}${index}-in-grid`}
               index={index}

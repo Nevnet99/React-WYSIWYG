@@ -2,11 +2,13 @@ import { useEditor } from '@hooks/useEditor';
 import { ItemTypes } from '@models/ItemTypes';
 import { ComponentTray } from '@molecules/ComponentTray';
 import { EditBlock } from '@molecules/EditBlock';
+import { PreviewBlock } from '@molecules/PreviewBlock';
+import { Toolbar } from '@molecules/Toolbar';
 import { useDrop } from 'react-dnd';
 import { Canvas, Wrapper } from './Editor.styles';
 
 export const Editor = () => {
-  const { schema } = useEditor();
+  const { schema, preview } = useEditor();
 
   const [collectedProps, drop] = useDrop(() => ({
     accept: ItemTypes.COMPONENT,
@@ -19,12 +21,17 @@ export const Editor = () => {
 
   return (
     <Wrapper>
-      <Canvas ref={drop}>
-        {schema.map((block, index) => (
-          <EditBlock key={block?.id} index={index} block={block} />
-        ))}
+      <Toolbar />
+      <Canvas preview={preview} ref={drop}>
+        {schema.map((block, index) =>
+          preview ? (
+            <PreviewBlock key={block?.id} index={index} block={block} />
+          ) : (
+            <EditBlock key={block?.id} index={index} block={block} />
+          )
+        )}
       </Canvas>
-      <ComponentTray />
+      {!preview && <ComponentTray />}
     </Wrapper>
   );
 };
