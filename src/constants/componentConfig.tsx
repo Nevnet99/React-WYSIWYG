@@ -84,6 +84,22 @@ const componentConfig = {
       },
     ],
   },
+  Image: {
+    componentType: 'Image',
+    props: {
+      customProps: {
+        src: 'https://via.placeholder.com/150',
+        alt: 'Example',
+      },
+    },
+    styles: [
+      ...baseStyles,
+      {
+        style: 'width',
+        type: 'text',
+      },
+    ],
+  },
 };
 
 export default componentConfig;
