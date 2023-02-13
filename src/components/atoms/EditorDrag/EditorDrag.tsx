@@ -17,7 +17,7 @@ interface Props {
   index: number;
 }
 
-export const EditorDrag = ({ children, block }: Props) => {
+export const EditorDrag = ({ children, block, index, id }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const { schema, moveComponent } = useEditor();
 
@@ -87,7 +87,7 @@ export const EditorDrag = ({ children, block }: Props) => {
   const [{ isDragging }, drag] = useDrag(
     {
       type: ItemTypes.COMPONENT,
-      item: { ...block },
+      item: { ...block, index },
       collect: (monitor: any) => ({
         isDragging: monitor.isDragging(),
       }),

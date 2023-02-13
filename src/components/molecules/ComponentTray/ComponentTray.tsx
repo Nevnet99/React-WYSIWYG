@@ -1,6 +1,7 @@
 import { Button } from '@atoms/Button';
 import { SidebarDrag } from '@atoms/SidebarDrag';
 import { useEditor } from '@hooks/useEditor';
+import { JsonPreview } from '@molecules/JsonPreview';
 import { PropsEditor } from '@organisms/PropsEditor';
 import { StyleEditor } from '@organisms/StyleEditor';
 import { Tabs } from '@organisms/Tabs';
@@ -8,7 +9,7 @@ import { Buttons, Wrapper } from './ComponentTray.styles';
 import { components } from './config';
 
 export const ComponentTray = () => {
-  const { schema, activeBlock } = useEditor();
+  const { activeBlock } = useEditor();
   return (
     <Wrapper>
       <Tabs defaultValue="tab1">
@@ -32,7 +33,7 @@ export const ComponentTray = () => {
           <PropsEditor />
         </Tabs.Tab>
         <Tabs.Tab value="tab4">
-          <pre>{JSON.stringify(schema, null, 2)}</pre>
+          <JsonPreview />
         </Tabs.Tab>
       </Tabs>
     </Wrapper>

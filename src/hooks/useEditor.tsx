@@ -16,6 +16,7 @@ import {
 interface IEditorContext {
   schema: IComponentInEditor[];
   activeBlock: IComponentInEditor | Record<string, never>;
+  preview: boolean;
   setSchema: Dispatch<SetStateAction<IComponentInEditor[]>>;
   moveComponent: (dragIndex: number, hoverIndex: number) => void;
   setActiveBlock: (block: IComponentInEditor) => void;
@@ -29,12 +30,14 @@ interface IEditorContext {
     fields: Partial<IComponentInEditor>,
     gridId: string
   ) => void;
+  setPreview: Dispatch<SetStateAction<boolean>>;
 }
 
 const EditorContext = createContext<IEditorContext>({} as IEditorContext);
 
 const EditorProvider: FC<PropsWithChildren> = ({ children }) => {
   const [schema, setSchema] = useState<IComponentInEditor[]>([]);
+  const [preview, setPreview] = useState(false);
   const [activeBlock, setActiveBlock] = useState<
     IComponentInEditor | Record<string, never>
   >({});
@@ -89,6 +92,7 @@ const EditorProvider: FC<PropsWithChildren> = ({ children }) => {
 
           for (let index = 0; index < maxBlocks; index++) {
             const blocks = gridBlock?.props[`child${index}`] || [];
+            console.log(blocks);
 
             if (blocks.length) {
               currentBlock = {
@@ -98,6 +102,8 @@ const EditorProvider: FC<PropsWithChildren> = ({ children }) => {
               };
             }
           }
+
+          console.log(currentBlock, 'CB');
 
           const newArray = [...curr];
           newArray[gridIndex].props[`child${currentBlock.childIndex}`][
@@ -132,22 +138,26 @@ const EditorProvider: FC<PropsWithChildren> = ({ children }) => {
     () => ({
       schema,
       activeBlock,
+      preview,
       setSchema,
       moveComponent,
       setActiveBlock,
       getBlock,
       removeBlock,
       updateBlock,
+      setPreview,
     }),
     [
       schema,
       activeBlock,
+      preview,
       setSchema,
       moveComponent,
       setActiveBlock,
       getBlock,
       removeBlock,
       updateBlock,
+      setPreview,
     ]
   );
 

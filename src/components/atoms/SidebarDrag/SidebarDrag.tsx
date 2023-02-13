@@ -11,23 +11,25 @@ interface Props {
 }
 
 export const SidebarDrag = ({ componentType, children }: Props) => {
-  const uniqueId = uuidv4();
   const currentComponent = componentConfig[componentType];
-  const block = { ...currentComponent, id: uniqueId };
+  const block = { ...currentComponent };
   useEditor();
-  const { setSchema } = useEditor();
+  const { setSchema, schema } = useEditor();
 
-  const [collected, drag, dragPreview] = useDrag(() => ({
-    type: ItemTypes.COMPONENT,
-    item: block,
-    end: (item, monitor) => {
-      const dropResult = monitor.getDropResult();
+  const [collected, drag, dragPreview] = useDrag(
+    () => ({
+      type: ItemTypes.COMPONENT,
+      item: block,
+      end: (item, monitor) => {
+        const dropResult = monitor.getDropResult();
 
-      if (item && dropResult) {
-        setSchema((prev) => [...prev, block]);
-      }
-    },
-  }));
+        if (item && dropResult) {
+          setSchema((prev) => [...prev, { ...block, id: uuidv4() }]);
+        }
+      },
+    }),
+    [schema]
+  );
 
   return collected.isDragging ? (
     <div ref={dragPreview} />
