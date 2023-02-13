@@ -26,19 +26,6 @@ const GlobalStyles = createGlobalStyle`
         font-size: 16px;
     }
   }
-  
-  body {
-    padding: 0 ${({ theme: { spacing } }) => spacing(20)};
-
-    ${({ theme }) => theme.minBp('tablet')} {
-      padding: 0 ${({ theme: { spacing } }) => spacing(100)};
-    }
-
-    ${({ theme }) => theme.minBp('desktop')} {
-      padding: 0 ${({ theme: { spacing } }) => spacing(120)};
-    }
-
-  }
   `;
 
 export default GlobalStyles;

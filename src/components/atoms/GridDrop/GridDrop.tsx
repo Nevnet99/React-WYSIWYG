@@ -1,30 +1,11 @@
+import { useEditor } from '@hooks/useEditor';
 import { IComponentInEditor } from '@models/Component';
 import { ItemTypes } from '@models/ItemTypes';
-import type {
-  CSSProperties,
-  Dispatch,
-  FC,
-  ReactNode,
-  SetStateAction,
-} from 'react';
+import { EditBlock } from '@molecules/EditBlock';
+import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import { useState } from 'react';
 import { useDrop } from 'react-dnd';
-
-function getStyle(backgroundColor: string): CSSProperties {
-  return {
-    border: '1px solid rgba(0,0,0,0.2)',
-    minHeight: '8rem',
-    minWidth: '8rem',
-    color: 'white',
-    backgroundColor,
-    padding: '2rem',
-    paddingTop: '1rem',
-    margin: '1rem',
-    textAlign: 'center',
-    float: 'left',
-    fontSize: '1rem',
-  };
-}
+import { GridDropContainer } from './GridDrop.styles';
 
 export interface DustbinProps {
   greedy?: boolean;
@@ -37,14 +18,10 @@ export interface DustbinState {
   hasDroppedOnChild: boolean;
 }
 
-export const GridDrop: FC<DustbinProps> = ({
-  id,
-  updateCanvas,
-  greedy,
-  children,
-}) => {
+export const GridDrop: FC<DustbinProps> = ({ id, index, greedy, blocks }) => {
   const [hasDropped, setHasDropped] = useState(false);
   const [hasDroppedOnChild, setHasDroppedOnChild] = useState(false);
+  const { schema, updateBlock, removeBlock, getBlock } = useEditor();
 
   const [{ isOver, isOverCurrent }, drop] = useDrop(
     () => ({
@@ -54,30 +31,47 @@ export const GridDrop: FC<DustbinProps> = ({
         if (didDrop && !greedy) {
           return;
         }
+
+        const { block } = getBlock(id);
+
+        const prev = block?.props[`child${index}`] || [];
+        updateBlock(block?.id, {
+          props: {
+            ...block.props,
+            [`child${index}`]: [
+              ...prev,
+              { ...item, gridChild: true, gridId: id },
+            ],
+          },
+        });
+
+        // remove duplicate
+        removeBlock(item?.id);
+
         setHasDropped(true);
         setHasDroppedOnChild(didDrop);
-        console.log(id, 'ID');
-        // updateCanvas((prev) => {
-        //   const copy = [...prev];
-        // });
       },
       collect: (monitor) => ({
         isOver: monitor.isOver(),
         isOverCurrent: monitor.isOver({ shallow: true }),
       }),
     }),
-    [greedy, setHasDropped, setHasDroppedOnChild]
+    [greedy, setHasDropped, setHasDroppedOnChild, schema]
   );
 
-  let backgroundColor = 'rgba(0, 0, 0, .5)';
-
-  if (isOverCurrent || (isOver && greedy)) {
-    backgroundColor = 'darkgreen';
-  }
-
   return (
-    <div ref={drop} style={getStyle(backgroundColor)}>
-      {children}
-    </div>
+    <GridDropContainer blocks={blocks && blocks.length} ref={drop}>
+      {blocks &&
+        blocks.map((block, index) => {
+          const { type } = block || {};
+          return (
+            <EditBlock
+              key={`${type}${index}-in-grid`}
+              index={index}
+              block={block}
+            />
+          );
+        })}
+    </GridDropContainer>
   );
 };

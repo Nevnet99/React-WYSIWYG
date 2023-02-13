@@ -7,23 +7,20 @@ interface Props {
   updateCanvas: Dispatch<SetStateAction<IComponentInEditor[]>>;
 }
 
-export const Grid = ({
-  gridId,
-  updateCanvas,
-  child1,
-  child2,
-  child3,
-  ...rest
-}: Props) => (
-  <Wrapper>
-    <GridDrop index={0} gridId={gridId} updateCanvas={updateCanvas}>
-      {child1}
-    </GridDrop>
-    <GridDrop index={1} gridId={gridId} updateCanvas={updateCanvas}>
-      {child2}
-    </GridDrop>
-    <GridDrop index={2} gridId={gridId} updateCanvas={updateCanvas}>
-      {child3}
-    </GridDrop>
-  </Wrapper>
-);
+export const Grid = ({ id, customProps, ...rest }: Props) => {
+  const { style } = rest;
+  const { cols: editorCols, rows: editorRows } = customProps || {};
+  const amountOfChildren = [
+    ...Array(parseInt(Math.max(editorCols, editorRows), 10)).keys(),
+  ] || [0, 1, 2];
+
+  return (
+    <Wrapper editorCols={editorCols} editorRows={editorRows} style={style}>
+      {amountOfChildren.map((_, index) => {
+        const replacementChildren = rest[`child${index}`] || [];
+
+        return <GridDrop index={index} id={id} blocks={replacementChildren} />;
+      })}
+    </Wrapper>
+  );
+};

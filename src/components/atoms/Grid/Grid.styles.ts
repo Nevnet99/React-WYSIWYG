@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 
 // change div to be more semantic where possible
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ editorCols: string; editorRows: string }>`
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 10px;
 
-  & > div {
-    border: 1px dashed hotpink;
-    min-height: 100px;
-  }
+  opacity: 0.99;
+  grid-template-columns: repeat(${({ editorCols }) => editorCols}, 1fr);
+  grid-template-rows: repeat(${({ editorRows }) => editorRows}, 1fr);
 `;

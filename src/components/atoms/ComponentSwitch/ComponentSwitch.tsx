@@ -1,16 +1,46 @@
 import { IComponentInEditor } from '@models/Component';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
-import { Components } from './config';
+import { Components, voidComponents } from './config';
 
 interface Props {
-  id: keyof typeof Components;
+  componentType: keyof typeof Components;
   children: ReactNode;
   updateCanvas: Dispatch<SetStateAction<IComponentInEditor[]>>;
-  gridId: string;
 }
 
-export const ComponentSwitch = ({ id, children, ...rest }: Props) => {
-  const Component = Components[id];
+export const ComponentSwitch = ({
+  componentType,
+  children,
+  props,
+  ...rest
+}: Props) => {
+  if (!componentType) return null;
+  const Component = Components[componentType];
+  const { blocks } = props || [];
+  const isVoid = voidComponents.includes(componentType);
 
-  return <Component {...rest}>{children}</Component>;
+  return isVoid ? (
+    <Component {...rest} {...props} />
+  ) : (
+    <Component {...rest} {...props}>
+      {children}
+      {blocks &&
+        blocks.map((block: IComponentInEditor) => {
+          const {
+            componentType: blockComponentType,
+            props: blockProps,
+            ...blockRest
+          } = block || {};
+
+          return (
+            <ComponentSwitch
+              componentType={blockComponentType}
+              props={blockProps}
+              {...blockRest}
+              {...blockProps?.editableProps}
+            />
+          );
+        })}
+    </Component>
+  );
 };
