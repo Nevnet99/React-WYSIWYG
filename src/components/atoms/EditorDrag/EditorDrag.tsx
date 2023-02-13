@@ -1,5 +1,6 @@
 import componentConfig from '@constants/componentConfig';
 import { useEditor } from '@hooks/useEditor';
+import { IComponentInEditor } from '@models/Component';
 import { ItemTypes } from '@models/ItemTypes';
 import type { Identifier, XYCoord } from 'dnd-core';
 import { ReactNode, useRef } from 'react';
@@ -15,6 +16,8 @@ interface Props {
   componentType: keyof typeof componentConfig;
   children: ReactNode;
   index: number;
+  id: string;
+  block: IComponentInEditor
 }
 
 export const EditorDrag = ({ children, block, index, id }: Props) => {

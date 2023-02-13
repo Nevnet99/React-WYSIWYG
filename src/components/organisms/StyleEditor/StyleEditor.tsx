@@ -12,7 +12,6 @@ export const StyleEditor = () => {
   const formRef = useRef<HTMLFormElement>();
 
   const handleSubmit = (event: FormEventHandler<HTMLFormElement>) => {
-    event.preventDefault();
 
     const fields = Array.prototype.slice
       .call(event.target)
@@ -59,7 +58,7 @@ export const StyleEditor = () => {
       </h2>
       <form
         ref={formRef}
-        onSubmit={(evt: FormEventHandler<HTMLFormElement>) => handleSubmit(evt)}
+        onSubmit={handleSubmit}
       >
         {activeBlock && <ContentEditor defaultValue={props?.children} />}
         {styles &&

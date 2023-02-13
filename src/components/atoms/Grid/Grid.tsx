@@ -1,14 +1,16 @@
 import { GridDrop } from '@atoms/GridDrop';
 import { IComponentInEditor } from '@models/Component';
-import { Dispatch, SetStateAction } from 'react';
+import { CSSProperties } from 'react';
 import { Wrapper } from './Grid.styles';
 
 interface Props {
-  updateCanvas: Dispatch<SetStateAction<IComponentInEditor[]>>;
+  id: string;
+  customProps?: IComponentInEditor['props']['customProps'];
+  style?: CSSProperties;
 }
 
-export const Grid = ({ id, customProps, ...rest }: Props) => {
-  const { style } = rest;
+export const Grid = ({ id, customProps, style, ...rest }: Props) => {
+
   const { cols: editorCols, rows: editorRows } = customProps || {};
   const amountOfChildren = [
     ...Array(parseInt(Math.max(editorCols, editorRows), 10)).keys(),
