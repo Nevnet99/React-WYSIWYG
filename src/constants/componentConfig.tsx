@@ -1,8 +1,3 @@
-import { Button } from '@atoms/Button';
-import { Grid } from '@atoms/Grid';
-import { GridDrop } from '@atoms/GridDrop';
-import { Typography } from '@atoms/Typography';
-
 const baseStyles = [
   { style: 'color', type: 'text' },
   { style: 'fontSize', type: 'text' },
@@ -20,12 +15,13 @@ const baseStyles = [
 
 const componentConfig = {
   Button: {
-    name: 'Button',
-    type: 'Button',
+    componentType: 'Button',
+    children: 'Button',
     props: {
-      children: 'Button',
+      editableProps: {
+        type: 'button',
+      },
     },
-    Component: Button,
     styles: [
       ...baseStyles,
       { style: 'borderRadius', type: 'text' },
@@ -34,47 +30,59 @@ const componentConfig = {
     ],
   },
   Typography: {
-    name: 'Typography',
-    type: 'Typography',
-    props: {
-      children: 'Example Typography',
-    },
+    componentType: 'Typography',
+    children: 'Example Typography',
+    props: {},
     styles: [
       ...baseStyles,
       { style: 'textTransform', type: 'text' },
       { style: 'height', type: 'text' },
       { style: 'width', type: 'text' },
     ],
-    Component: Typography,
   },
   Grid: {
-    name: 'Grid',
-    type: 'Grid',
-    styles: [
-      ...baseStyles,
-      { style: 'gridTemplateColumns', type: 'text' },
-      { style: 'gridTemplateRows', type: 'text' },
-      { style: 'gridGap', type: 'text' },
-      { style: 'height', type: 'text' },
-      { style: 'width', type: 'text' },
-    ],
-    Component: Grid,
-  },
-  GridDrop: {
-    name: 'GridDrop',
-    type: 'GridDrop',
-    styles: [
-      ...baseStyles,
-      { style: 'gridTemplateColumns', type: 'text' },
-      { style: 'gridTemplateRows', type: 'text' },
-      { style: 'gridGap', type: 'text' },
-      { style: 'height', type: 'text' },
-      { style: 'width', type: 'text' },
-    ],
+    componentType: 'Grid',
     props: {
-      children: 'Place a component here',
+      customProps: {
+        cols: 3,
+        rows: 1,
+      },
     },
-    Component: GridDrop,
+    styles: [
+      ...baseStyles,
+      { style: 'height', type: 'text' },
+      { style: 'width', type: 'text' },
+      { style: 'gap', type: 'text' },
+    ],
+  },
+  Input: {
+    componentType: 'Input',
+    props: {
+      editableProps: {
+        name: 'input',
+        type: 'text',
+        label: 'Example label',
+      },
+    },
+    styles: [...baseStyles],
+  },
+  Form: {
+    componentType: 'Form',
+    props: {
+      editableProps: {},
+      customProps: {
+        url: 'http://example.com',
+        cols: 1,
+        rows: 4,
+      },
+    },
+    styles: [
+      ...baseStyles,
+      {
+        style: 'width',
+        type: 'text',
+      },
+    ],
   },
 };
 

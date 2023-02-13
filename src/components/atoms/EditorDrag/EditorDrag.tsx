@@ -1,4 +1,5 @@
 import componentConfig from '@constants/componentConfig';
+import { useEditor } from '@hooks/useEditor';
 import { ItemTypes } from '@models/ItemTypes';
 import type { Identifier, XYCoord } from 'dnd-core';
 import { ReactNode, useRef } from 'react';
@@ -11,15 +12,14 @@ interface DragItem {
 }
 
 interface Props {
-  name: keyof typeof componentConfig;
+  componentType: keyof typeof componentConfig;
   children: ReactNode;
   index: number;
-  moveComponent: (dragIndex: number, hoverIndex: number) => void;
 }
 
-export const EditorDrag = ({ name, children, index, moveComponent }: Props) => {
+export const EditorDrag = ({ children, block }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
-  const currentComponent = componentConfig[name];
+  const { schema, moveComponent } = useEditor();
 
   const [{ handlerId }, drop] = useDrop<
     DragItem,
@@ -84,13 +84,16 @@ export const EditorDrag = ({ name, children, index, moveComponent }: Props) => {
     },
   });
 
-  const [{ isDragging }, drag] = useDrag({
-    type: ItemTypes.COMPONENT,
-    item: { ...currentComponent, index },
-    collect: (monitor: any) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
+  const [{ isDragging }, drag] = useDrag(
+    {
+      type: ItemTypes.COMPONENT,
+      item: { ...block },
+      collect: (monitor: any) => ({
+        isDragging: monitor.isDragging(),
+      }),
+    },
+    [schema]
+  );
 
   drag(drop(ref));
 

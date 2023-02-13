@@ -1,24 +1,14 @@
 import { Button } from '@atoms/Button';
 import { camelToTitleCase } from '@helpers/camelToTitleCase';
-import { IComponentInEditor } from '@models/Component';
+import { useEditor } from '@hooks/useEditor';
 import { ContentEditor } from '@organisms/ContentEditor';
-import {
-  Dispatch,
-  FormEventHandler,
-  SetStateAction,
-  useEffect,
-  useRef,
-} from 'react';
+import { FormEventHandler, useEffect, useRef } from 'react';
 import { Wrapper } from './StyleEditor.styles';
 
-interface Props {
-  updateCanvas: Dispatch<SetStateAction<IComponentInEditor[]>>;
-  activeItem: IComponentInEditor;
-}
-
-export const StyleEditor = ({ updateCanvas, activeItem }: Props) => {
-  const { id, styles } = activeItem || {};
-  const { props } = activeItem || {};
+export const StyleEditor = () => {
+  const { activeBlock, updateBlock, getBlock } = useEditor();
+  const { styles, gridId } = activeBlock || {};
+  const { props } = activeBlock || {};
   const formRef = useRef<HTMLFormElement>();
 
   const handleSubmit = (event: FormEventHandler<HTMLFormElement>) => {
@@ -36,35 +26,42 @@ export const StyleEditor = ({ updateCanvas, activeItem }: Props) => {
       );
 
     const { content } = fields;
-    delete fields.content;
 
-    updateCanvas((prev) => {
-      const indexToReplace = prev.findIndex(
-        ({ id: storedID }) => storedID === id
-      );
-      const newArray = [...prev];
-      newArray.splice(indexToReplace, 1, {
-        ...activeItem,
-        props: { ...activeItem.props, style: { ...fields }, children: content },
-      });
+    if (content) {
+      delete fields.content;
+    }
 
-      return newArray;
-    });
+    updateBlock(
+      activeBlock.id,
+      {
+        ...(content && { children: content }),
+        props: {
+          ...activeBlock.props,
+          style: { ...fields },
+        },
+      },
+      gridId
+    );
   };
 
   useEffect(() => {
     if (formRef.current) {
       formRef.current.reset();
     }
-  }, [activeItem]);
+  }, [activeBlock]);
 
   return (
     <Wrapper>
+      <h2>
+        {!activeBlock
+          ? 'Please select a component to start editing'
+          : `Editing: ${activeBlock?.componentType}`}
+      </h2>
       <form
         ref={formRef}
         onSubmit={(evt: FormEventHandler<HTMLFormElement>) => handleSubmit(evt)}
       >
-        {activeItem && <ContentEditor defaultValue={props?.children} />}
+        {activeBlock && <ContentEditor defaultValue={props?.children} />}
         {styles &&
           styles?.map(({ style, type }) => (
             <>
@@ -75,11 +72,11 @@ export const StyleEditor = ({ updateCanvas, activeItem }: Props) => {
                 name={style}
                 id={style}
                 type={type}
-                defaultValue={(props.style && props.style[style]) || ''}
+                defaultValue={(props?.style && props.style[style]) || ''}
               />
             </>
           ))}
-        {activeItem && <Button type="submit">Save</Button>}
+        {activeBlock && <Button type="submit">Save</Button>}
       </form>
     </Wrapper>
   );

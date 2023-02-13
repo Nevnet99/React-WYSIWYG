@@ -1,3 +1,8 @@
+import DragProvider from '@contexts/DragProvider';
+import StyleProvider from '@contexts/StyleProvider';
+import { EditorProvider } from '@hooks/useEditor';
+import { Editor } from '@organisms/Editor';
+import GlobalStyles from '@styles/globalStyles';
 import Head from 'next/head';
 
 export default function Home() {
@@ -10,7 +15,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Hey</h1>
+        <StyleProvider>
+          <GlobalStyles />
+          <DragProvider>
+            <EditorProvider>
+              <Editor />
+            </EditorProvider>
+          </DragProvider>
+        </StyleProvider>
       </main>
     </>
   );

@@ -1,27 +1,30 @@
 import componentConfig from '@constants/componentConfig';
-import { IComponentInEditor } from '@models/Component';
+import { useEditor } from '@hooks/useEditor';
 import { ItemTypes } from '@models/ItemTypes';
-import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { ReactNode } from 'react';
 import { useDrag } from 'react-dnd';
 import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
-  name: keyof typeof componentConfig;
+  componentType: keyof typeof componentConfig;
   children: ReactNode;
-  updateCanvas: Dispatch<SetStateAction<IComponentInEditor[]>>;
 }
 
-export const SidebarDrag = ({ name, updateCanvas, children }: Props) => {
-  const currentComponent = componentConfig[name];
+export const SidebarDrag = ({ componentType, children }: Props) => {
+  const uniqueId = uuidv4();
+  const currentComponent = componentConfig[componentType];
+  const block = { ...currentComponent, id: uniqueId };
+  useEditor();
+  const { setSchema } = useEditor();
 
   const [collected, drag, dragPreview] = useDrag(() => ({
     type: ItemTypes.COMPONENT,
-    item: { ...currentComponent, id: uuidv4() },
+    item: block,
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
 
       if (item && dropResult) {
-        updateCanvas((prev) => [...prev, item]);
+        setSchema((prev) => [...prev, block]);
       }
     },
   }));

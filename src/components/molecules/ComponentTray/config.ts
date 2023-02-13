@@ -1,18 +1,22 @@
 export const components = [
   {
     id: 1,
-    name: 'Button',
+    componentType: 'Button',
   },
   {
     id: 2,
-    name: 'Typography',
+    componentType: 'Typography',
   },
   {
     id: 3,
-    name: 'Grid',
+    componentType: 'Grid',
   },
   {
     id: 4,
-    name: 'GridDrop',
+    componentType: 'Input',
+  },
+  {
+    id: 5,
+    componentType: 'Form',
   },
 ];
