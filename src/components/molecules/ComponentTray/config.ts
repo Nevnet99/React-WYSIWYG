@@ -19,4 +19,8 @@ export const components = [
     id: 5,
     componentType: 'Form',
   },
+  {
+    id: 6,
+    componentType: 'Image',
+  },
 ];

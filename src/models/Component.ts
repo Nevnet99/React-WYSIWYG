@@ -10,10 +10,12 @@ type ActiveStyle = {
   value: string;
 };
 
-type CustomPropOptions = {
+export type CustomPropOptions = {
   cols: number;
   rows: number;
   label: string;
+  src: string;
+  alt: string;
 };
 
 export interface IComponent {
